@@ -5,5 +5,15 @@ public enum Especialidade {
     ortopedia,
     cardiologia,
     ginecologia,
-    dermatologia
+    dermatologia,
+    ORTOPEDIA,
+    CARDIOLOGIA,
+    GINECOLOGIA,
+    DERMATOLOGIA,
+    PEDIATRIA,
+    NEUROLOGIA,
+    PSIQUIATRIA,
+    OFTALMOLOGIA,
+    ENDOCRINOLOGIA,
+    UROLOGIA
 }
