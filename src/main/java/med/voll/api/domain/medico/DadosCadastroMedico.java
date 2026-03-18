@@ -9,11 +9,10 @@ import med.voll.api.domain.endereco.DadosEndereco;
 
 public record DadosCadastroMedico(
 
-        @NotNull
         @NotBlank
         String nome,
 
-        @NotNull
+        @NotBlank
         @Email
         String email,
 

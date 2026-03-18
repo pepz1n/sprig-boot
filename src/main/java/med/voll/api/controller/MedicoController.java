@@ -18,24 +18,24 @@ public class MedicoController {
     @Autowired
     private MedicoRepository medicoRepository;
 
-    @PostMapping("/criar")
+    @PostMapping
     @Transactional
     public ResponseEntity<DadosDetalhamentoMedico> cadastrarMedico(@RequestBody @Valid DadosCadastroMedico request, UriComponentsBuilder uriBuilder) {
         var medico = new Medico(request);
         medicoRepository.save(medico);
 
-        var uri = uriBuilder.path("/medicos/get/{id}").buildAndExpand(medico.getId()).toUri();
+        var uri = uriBuilder.path("/medicos/{id}").buildAndExpand(medico.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new DadosDetalhamentoMedico(medico));
     }
 
-    @GetMapping("/get")
+    @GetMapping
     public ResponseEntity<Page<DadosBuscaMedico>> getMedico(@PageableDefault(size = 10, sort = {"nome"}) Pageable paginacao) {
         var page = medicoRepository.findAllByAtivoTrue(paginacao).map(DadosBuscaMedico::new);
         return ResponseEntity.ok(page);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<DadosDetalhamentoMedico> DadosBuscaMedicosId(@PathVariable Long id) {
         var medico = medicoRepository.getReferenceById(id);
 
@@ -45,7 +45,7 @@ public class MedicoController {
         return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
     }
 
-    @PutMapping("/atualizar")
+    @PutMapping
     @Transactional
     public ResponseEntity<DadosDetalhamentoMedico> atualizarMedico(@RequestBody @Valid DadosAtualizarMedico request) {
         var medico = medicoRepository.getReferenceById(request.id());
@@ -54,7 +54,7 @@ public class MedicoController {
         return ResponseEntity.ok(new DadosDetalhamentoMedico(medico));
     }
 
-    @DeleteMapping("/excluir/{id}")
+    @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Void> excluirMedico(@PathVariable Long id) {
         var medico = medicoRepository.getReferenceById(id);
